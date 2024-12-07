@@ -6,12 +6,248 @@ package RPG;
 import java.util.Scanner;
 
 public class App {
+    
+    public void inicializarStatusBase(Personagem pokemon) {
+        pokemon.ataqueExtra = pokemon.ataqueBase;
+        pokemon.vidaExtra = pokemon.vidaBase;
+        pokemon.manaExtra = pokemon.manaBase;
+    }
+    public boolean tentarFugir(Personagem pokemon) {
+        
+        Scanner scanner = new Scanner(System.in);
+        Dados dados = new Dados();
+                
+    int dados7 = dados.rolarDados(scanner);
+    if (dados7 >= 9) {
+        System.out.println("\nVoce conseguiu fugir da batalha!");
+        return true; 
+    } else {
+        System.out.println("\nTentativa de fuga falha!");
+        return false; 
+    }
+}
+    
+    public void caminho1(Personagem pokemon) {
+        
+        Scanner scanner = new Scanner(System.in);
+        Dados dados = new Dados();
+        App app = new App();
+        
+        
+    System.out.println("\nVoce sai do laboratorio do PROF. Carvalho, situado na cidade de Palette, rumo a sua jornada."
+                 + "\nPassando pela cidade de Palette e atravessando a rota 1 sem nenhum empecilho, acaba chegando na cidade de Viridian."
+                 + "\nA cidade de Viridian bifurca para duas rotas diferente para chegar a cidade de Pewter, uma delas passando pela Caverna dos Digletts,"
+                 + " a outra pela Floresta de Viridian."
+                 + "\nQual sua escolha de caminho?"
+                 + "\n"
+                 + "\n1. Carverna dos Digletts\n2. Floresta de Viridian");
+         int escolha1 = scanner.nextInt();
+         String skip2 = scanner.nextLine();
+         
+         if (escolha1 ==1) {
+                System.out.println("\nVoce adentra a Carvena dos Digletts rumo a cidade de Pewter, "
+                        + "apos caminhar por um curto periodo um treinador vai de encontro a voce!"
+                        + "\nSeu nome e Xanadson que te desafia para uma batalha POKEMON, agora e hora de duelar!");
+         
+                 OponenteA oponenteA = new OponenteA();
+                 
+                 System.out.println("\nDados para ataque: ");
+                 int dados4 = dados.rolarDados(scanner);
+                 System.out.println("\nDados para vida: ");
+                 int dados5 = dados.rolarDados(scanner);
+                 System.out.println("\nDados para mana: ");
+                 int dados6 = dados.rolarDados(scanner);
+   
+                 
+                pokemon.ataqueExtra = pokemon.ataqueBase + dados4;
+                pokemon.vida = pokemon.vida + dados5;
+                pokemon.mana = pokemon.mana + dados6;   
+                
+                System.out.println("\nSeu ataque: " + pokemon.ataqueExtra);
+                System.out.println("Sua vida: " + pokemon.vida);
+                System.out.println("Seu mana: " + pokemon.mana);
+         
+                while (pokemon.estaVivo() && oponenteA.estaVivo()) {
+                System.out.println("\nEscolha o seu movimento:");
+                System.out.println("1. Atacar");
+                System.out.println("2. Ataque Especial (30 de dano - Custo: 8 de mana.)");
+                System.out.println("3. Fugir");
+                
+                int escolhaBatalha = scanner.nextInt();
+                
+                boolean fugaBemSucedida = false;
+                
 
+                switch (escolhaBatalha) {
+                    case 1:
+                        if (pokemon.mana >= 3) {
+                             pokemon.atacar(oponenteA);
+                        } else {
+                            System.out.println("\nVoce nao tem mana suficiente para atacar!");
+                        }
+                        break;
+                     case 3:
+                         fugaBemSucedida = app.tentarFugir(pokemon);                   
+                        break;
+                     case 2:
+                         if (pokemon.mana >= 8) {
+                             pokemon.atacarForte(oponenteA);
+                         } else {
+                             System.out.println("Voce nao tem mana suficiente para ataque especial");
+                         break;
+                         }
+                }
+                
+                if (fugaBemSucedida) {
+                     System.out.println("Voce passa pela Carvena dos Digletts sem nenhum problema, encontra alguns POKEMON mas apenas a companhia de "
+                + pokemon.nome + " ja basta.");
+                    app.caminho2(pokemon);
+                    break;
+                }
+
+                if (oponenteA.vida > 0 && oponenteA.mana >= 3) {
+                    
+                    oponenteA.atacar(pokemon);
+                    
+                } else if (oponenteA.vida > 0 && oponenteA.mana < 3) {
+                    
+                    System.out.println("Oponente nao tem mana suficiente para atacar!");
+                }
+            
+                System.out.println("Sua vida: " + pokemon.vida + "\nVida inimiga: " + oponenteA.vida);        
+            
+
+                if (!oponenteA.estaVivo()) {
+                    System.out.println(oponenteA.nome + " foi derrotado!");
+                    app.caminho2(pokemon);
+                    break;
+                } 
+        }
+
+        } else if (escolha1 == 2) {
+            System.out.println("Voce passa pela Floresta de Viridian sem nenhum problema, encontra alguns POKEMON mas apenas a companhia de "
+                    + pokemon.nome + " ja basta.");
+            app.caminho2(pokemon);
+        }
+}
+
+    public void caminho2(Personagem pokemon)  {
+        
+        Scanner scanner = new Scanner(System.in);
+        Dados dados = new Dados();
+        App app = new App();
+        
+        System.out.println("Chegando na cidade de Pewter  voce decide parar um pouco para descansar e aproveitar a cidade. "
+                + "\nVoce conversa com moradores para conseguir informacoes e seguir seu caminho, entao descobre que para chegar na proxima parada, "
+                + "\ncidade de Cerulean, "
+                + "e necessario passar pelo Monte Moon, uma montanha cheia de misterios e lendas que a tangem!"
+                + "\nEntao voce decide adentrar a caverna formada na base da montanha. \nAdentrando voce se depara com uma bifurcacao,"
+                + "qual lado escolhera?"
+                + "\n1. Esquerda"
+                + "\n2. Direita");
+        int escolha2 = scanner.nextInt();
+         String skip3 = scanner.nextLine();
+         
+         if (escolha2 == 2) {
+                System.out.println("\nVoce decide ir pelo caminho da direita."
+                        + "\nApos caminhar pelo terreno rochoso por um longo tempo, encontra um treinador aventureiro pronto para duelar!"
+                        + "\nSeu nome e Whingslompson que te desafia para uma batalha POKEMON, agora e hora de duelar!");
+         
+                 OponenteB oponenteB = new OponenteB();
+                 
+                 System.out.println("\nDados para ataque: ");
+                 int dados4 = dados.rolarDados(scanner);
+                 System.out.println("\nDados para vida: ");
+                 int dados5 = dados.rolarDados(scanner);
+                 System.out.println("\nDados para mana: ");
+                 int dados6 = dados.rolarDados(scanner);
+   
+                 
+                pokemon.ataqueExtra = pokemon.ataqueBase + dados4;
+                pokemon.vida = pokemon.vida + dados5;
+                pokemon.mana = pokemon.mana + dados6;   
+                
+                System.out.println("\nSeu ataque: " + pokemon.ataqueExtra);
+                System.out.println("Sua vida: " + pokemon.vida);
+                System.out.println("Seu mana: " + pokemon.mana);
+         
+                while (pokemon.estaVivo() && oponenteB.estaVivo()) {
+                System.out.println("\nEscolha o seu movimento:");
+                System.out.println("1. Atacar");
+                System.out.println("2. Ataque Especial (30 de dano - Custo: 8 de mana.)");
+                System.out.println("3. Fugir");
+                
+                int escolhaBatalha = scanner.nextInt();
+                
+                boolean fugaBemSucedida = false;
+                
+
+                switch (escolhaBatalha) {
+                    case 1:
+                        if (pokemon.mana >= 3) {
+                             pokemon.atacar(oponenteB);
+                        } else {
+                            System.out.println("\nVoce nao tem mana suficiente para atacar!");
+                        }
+                        break;
+                     case 3:
+                         fugaBemSucedida = app.tentarFugir(pokemon);                   
+                        break;
+                     case 2:
+                         if (pokemon.mana >= 8) {
+                             pokemon.atacarForte(oponenteB);
+                         } else {
+                             System.out.println("Voce nao tem mana suficiente para ataque especial");
+                         break;
+                         }
+                }
+                
+                if (fugaBemSucedida) {
+                     System.out.println("Explorando o Monte Moon voce encontra bastante Zubats na trilha, porem decide nao testar a sorte e passa bem mansinho"
+                             + " ate encontrar a saida para a cidade de Cerulean.");
+                    app.caminho3(pokemon);
+                    break;
+                }
+
+                if (oponenteB.vida > 0 && oponenteB.mana >= 3) {
+                    
+                    oponenteB.atacar(pokemon);
+                    
+                } else if (oponenteB.vida > 0 && oponenteB.mana < 3) {
+                    
+                    System.out.println("Oponente nao tem mana suficiente para atacar!");
+                }
+            
+                System.out.println("Sua vida: " + pokemon.vida + "\nVida inimiga: " + oponenteB.vida);        
+            
+
+                if (!oponenteB.estaVivo()) {
+                    System.out.println(oponenteB.nome + " foi derrotado!");
+                    app.caminho3(pokemon);
+                    break;
+                } 
+        }
+
+        } else if (escolha2 == 1) {
+            System.out.println("Caminhando pelo caminho da esquerda voce se depara com um treinador perdido, seu nome e Jamberlau!\n"
+                    + "Jamberlau conta que e um explorador que veio investigar as lendas do Monte Moon, porem no caminho se perdeu na imensidao"
+                    + " da escuridao da caverna.\n Voce decide ajudar Jamberlau e juntos procuram a saida da caverna."
+                    + "\nApos um longo periodo voces encontram a saida, Jamberlau agradece a ajuda e se despede, rumando a outro caminho."
+                    + "\nAgora seu destino é a cidade de Cerulean");
+            app.caminho3(pokemon);
+        }
+         
+         
+    }
+    public void caminho3(Personagem pokemon) {
+        System.out.println("Caminho 3.");
+    }
     public static void main(String[] args) {
         
         Scanner scanner = new Scanner(System.in);
         Personagem pokemon = new Bulbasaur();
         Dados dados = new Dados();
+        App app = new App();
         
         System.out.println ("Ola! Bem-vindo ao mundo dos POKEMON! Meu nome e Carvalho! "
             + "As pessoas me chamam de PROF. POKEMON!\nEste mundo e habitado por criaturas chamadas POKEMON! "
@@ -77,108 +313,18 @@ public class App {
                  int dados3 = dados.rolarDados(scanner);
    
                  
-                pokemon.ataque = pokemon.ataque + dados1;
+                pokemon.ataqueBase = pokemon.ataqueBase + dados1;
                 pokemon.vida = pokemon.vida + dados2;
                 pokemon.mana = pokemon.mana + dados3;   
                 
-                System.out.println("\nSeu ataque: " + pokemon.ataque);
+                System.out.println("\nSeu ataque: " + pokemon.ataqueBase);
                 System.out.println("Sua vida: " + pokemon.vida);
                 System.out.println("Seu mana: " + pokemon.mana);
                 
          System.out.println("Certo, " + treinador + "! Voce tera uma jornada e tanto pela frente, "
                  + "cuide bem do seu POKEMON e se divirta nessa fantastica aventura que lhe aguarda no mundo POKEMON!");
          
-         System.out.println("\nVoce sai do laboratorio do PROF. Carvalho, situado na cidade de Palette, rumo a sua jornada."
-                 + "\nPassando pela cidade de Palette e atravessando a rota 1 sem nenhum empecilho, acaba chegando na cidade de Viridian."
-                 + "\nA cidade de Viridian bifurca para duas rotas diferente para chegar a cidade de Pewter, uma delas passando pela Caverna dos Digletts,"
-                 + " a outra pela Floresta de Viridian."
-                 + "\nQual sua escolha de caminho?"
-                 + "\n"
-                 + "\n1. Carverna dos Digletts\n2. Floresta de Viridian");
-         int escolha1 = scanner.nextInt();
-         String skip2 = scanner.nextLine();
-         
-         if (escolha1 ==1) {
-                System.out.println("\nVoce adentra a Carvena dos Digletts rumo a cidade de Pewter, "
-                        + "apos caminhar por um curto periodo um treinador vai de encontro a voce!"
-                        + "\nSeu nome e Xanadson que te desafia para uma batalha POKEMON, agora e hora de duelar!");
-         
-                 OponenteA oponenteA = new OponenteA();
-                 
-                 System.out.println("\nDados para ataque: ");
-                 int dados4 = dados.rolarDados(scanner);
-                 System.out.println("\nDados para vida: ");
-                 int dados5 = dados.rolarDados(scanner);
-                 System.out.println("\nDados para mana: ");
-                 int dados6 = dados.rolarDados(scanner);
-   
-                 
-                pokemon.ataque = pokemon.ataque + dados4;
-                pokemon.vida = pokemon.vida + dados5;
-                pokemon.mana = pokemon.mana + dados6;   
-                
-                System.out.println("\nSeu ataque: " + pokemon.ataque);
-                System.out.println("Sua vida: " + pokemon.vida);
-                System.out.println("Seu mana: " + pokemon.mana);
-         
-                while (pokemon.estaVivo() && oponenteA.estaVivo()) {
-                System.out.println("\nEscolha o seu movimento:");
-                System.out.println("1. Atacar");
-                System.out.println("2. Ataque Especial (30 de dano - Custo: 8 de mana.)");
-                System.out.println("3. Fugir");
-                int escolhaBatalha = scanner.nextInt();
-                
-
-                switch (escolhaBatalha) {
-                    case 1:
-                        if (pokemon.mana >= 3) {
-                             pokemon.atacar(oponenteA);
-                        } else {
-                            System.out.println("\nVoce nao tem mana suficiente para atacar!");
-                        }
-                        break;
-                     case 3:
-                            int dados7 =  dados.rolarDados(scanner);
-                            if (dados7 >= 9) {
-                                System.out.println("\nVoce conseguiu fugir da batalha!");
-                                System.out.println("Voce passa pela Carvena dos Digletts sem nenhum problema, encontra alguns POKEMON mas apenas a companhia de "
-                    + pokemon.nome + " ja basta. \nChegando na cidade de Pewter voce decide parar para descansar...");
-                                System.exit(0);
-                            } else {
-                                System.out.println("\nTentativa de fuga falha!");
-                            }
-                            
-                        break;
-                     case 2:
-                         if (pokemon.mana >= 8) {
-                             pokemon.atacarForte(oponenteA);
-                         } else {
-                             System.out.println("Voce nao tem mana suficiente para ataque especial");
-                         break;
-                         }
-                }
-
-                if (oponenteA.vida > 0 && oponenteA.mana >= 3) {
-                    
-                    oponenteA.atacar(pokemon);
-                    
-                } else if (oponenteA.vida > 0 && oponenteA.mana < 3) {
-                    
-                    System.out.println("Oponente nao tem mana suficiente para atacar!");
-                }
-            
-                System.out.println("Sua vida: " + pokemon.vida + "\nVida inimiga: " + oponenteA.vida);        
-            
-
-                if (!oponenteA.estaVivo()) {
-                    System.out.println(oponenteA.nome + " foi derrotado!");
-                }
-        }
-
-        } else if (escolha1 == 2) {
-            System.out.println("Voce passa pela Floresta de Viridian sem nenhum problema, encontra alguns POKEMON mas apenas a companhia de "
-                    + pokemon.nome + " ja basta. Chegando na cidade de Pewter voce decide parar para descansar...");
-        }
+        app.caminho1(pokemon);
     }
 }
 

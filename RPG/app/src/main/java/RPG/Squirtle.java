@@ -11,21 +11,21 @@ package RPG;
 public class Squirtle extends Personagem {
     
     public Squirtle () {
-        super("Squirtle", 12, 30, 15, 10);
+        super("Squirtle", 12, 30, 0, 15, 10);
     }
     
     @Override
         public void atacar(Oponente oponente) {
-        oponente.vida = oponente.vida - this.ataque;
+        oponente.vida = oponente.vida - this.ataqueExtra;
         this.mana = this.mana - 3;
-        System.out.println(this.nome + " usou  Tackle em " + oponente.pokemon + " e causou " + this.ataque + " de dano! Agora voce tem " + this.mana + " de mana!!!");
+        System.out.println(this.nome + " usou  Tackle em " + oponente.pokemon + " e causou " + this.ataqueExtra + " de dano! Agora voce tem " + this.mana + " de mana!!!");
     }
         
          @Override
         public void atacarForte(Oponente oponente) {
         oponente.vida = oponente.vida - this.ataqueForte;
         this.mana = this.mana - 8;
-        System.out.println(this.nome + " usou Water Gun em " + oponente.pokemon + " e causou " + this.ataque + " de dano! Agora voce tem " + this.mana + " de mana!!!");
+        System.out.println(this.nome + " usou Water Gun em " + oponente.pokemon + " e causou " + this.ataqueExtra + " de dano! Agora voce tem " + this.mana + " de mana!!!");
     }
 
         @Override

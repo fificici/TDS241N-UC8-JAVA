@@ -12,14 +12,14 @@ package RPG;
 public class Bulbasaur extends Personagem{
     
 public Bulbasaur () {
-        super("Bulbasaur", 10, 30, 12,15);
+        super("Bulbasaur", 10, 0, 30, 12,15);
     }
 
         @Override
         public void atacar(Oponente oponente) {
-        oponente.vida = oponente.vida - this.ataque;
+        oponente.vida = oponente.vida - this.ataqueExtra;
         this.mana = this.mana - 3;
-        System.out.println(this.nome + " usou Tackle em " + oponente.pokemon + " e causou " + this.ataque + " de dano! Agora voce tem " + this.mana + " de mana!!!");
+        System.out.println(this.nome + " usou Tackle em " + oponente.pokemon + " e causou " + this.ataqueExtra + " de dano! Agora voce tem " + this.mana + " de mana!!!");
     }
         
         @Override
