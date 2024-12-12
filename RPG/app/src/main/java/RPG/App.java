@@ -315,7 +315,7 @@ public class App {
                 }
                 
                 if (fugaBemSucedida) {
-                     System.out.println("Voce fugiu da batalha pela Insignia como um COVARDE!\nA cidade inteira ficou sabendo do  ocorrido, e como retaliacao"
+                     System.out.println("Voce fugiu da batalha pela Insignia como um COVARDE!\nA cidade inteira ficou sabendo do  ocorrido, e como retaliacao "
                              + "voce foi enforcado em praca publica para servir de exemplo!\nNunca fuja de uma batalha POKEMON!"
                              + "\n"
                              + "\n"
