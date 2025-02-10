@@ -140,7 +140,7 @@ public class App {
 
 
                 int alternativa2 = scanner.nextInt();
-                if (alternativa2 >= 0 && alternativa2 < nomes.length) {
+                if (alternativa2 >= 0 && alternativa2 < nomes2.length) {
                     itens.add(nomes2[alternativa2]);
                     precos.add(precosLista2[alternativa2]);
                     System.out.println(nomes2[alternativa2] + " adicionado ao carrinho!");
