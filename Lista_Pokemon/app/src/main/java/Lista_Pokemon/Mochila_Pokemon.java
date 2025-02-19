@@ -6,6 +6,7 @@ package Lista_Pokemon;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,6 +60,10 @@ public class Mochila_Pokemon extends javax.swing.JFrame {
         pokemonLista.add(golem.getNome());
         pokemonLista.add(slowbro.getNome());
         pokemonLista.add(mew.getNome());
+        
+        for (String nomes : pokemonLista) {
+            listaLista.addElement(nomes);
+        }
     }
 
     /**
@@ -90,6 +95,7 @@ public class Mochila_Pokemon extends javax.swing.JFrame {
         texto1.setText("Mochila");
 
         mochila.setBackground(new java.awt.Color(51, 51, 51));
+        mochila.setForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(mochila);
 
         remover.setBackground(new java.awt.Color(102, 102, 102));
@@ -144,7 +150,7 @@ public class Mochila_Pokemon extends javax.swing.JFrame {
         });
 
         lista.setBackground(new java.awt.Color(51, 51, 51));
-        lista.setModel(pokemonLista.get(0));
+        lista.setForeground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(lista);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -201,10 +207,14 @@ public class Mochila_Pokemon extends javax.swing.JFrame {
         if(index != -1) {
             listaMochila.remove(index);
         }
+        
+        
     }//GEN-LAST:event_removerActionPerformed
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
         // TODO add your handling code here:
+        
+        int index = lista.getSelectedIndex();        
     }//GEN-LAST:event_adicionarActionPerformed
 
     /**
